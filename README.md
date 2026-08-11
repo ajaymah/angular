@@ -61,6 +61,7 @@ It checks the component only when specific triggers occur.
 @ViewChild is an Angular decorator, used to inject references to HTML elements, child components, or directives from a component's template into its TypeScript class  
 **@ViewChild is used to access a single element, directive, or child component from the component's own view.**  
 ```javascript
+Example-1 // references to HTML elements //
 import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 
 @Component({
@@ -83,6 +84,16 @@ export class AppComponent implements AfterViewInit {
 
 <input #myInput type="text" placeholder="Enter text">
 <button (click)="focusInput()">Focus Input</button>
+
+Example-2
+// @ViewChild('amount') amount!: ElementRef; //
+// @ViewChild(AlertMessage) alertMessageInstance!: AlertMessage; //
+// console.log(this.amount.nativeElement.value); //
+// <input type="text" #amount placeholder="Enter amount" /> //
+
+Example -3 // access child component //
+import { AlertMessage } from '../../core/alert-message/alert-message';
+ @ViewChild(AlertMessage) alertMessageInstance!: AlertMessage;
 ```
 ### 6 - @ViewChildren ###  
 @ViewChildren is used to access multiple elements or child components and returns a QueryList.  
@@ -125,3 +136,5 @@ export class AppComponent implements AfterViewInit {
 
 <button (click)="logItems()">Log Items</button>
 ```
+### 7 - @ContentChild ###  
+@ContentChild is used to access content projected from the parent through ng-content  
