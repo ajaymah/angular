@@ -56,3 +56,31 @@ It checks the component only when specific triggers occur.
 2- An Event Occurs Inside the Component
 3- An Observable Emits (used with async pipe)
 4- A Signal Changes
+
+### 5- @ViewChild ###
+@ViewChild is an Angular decorator, used to inject references to HTML elements, child components, or directives from a component's template into its TypeScript class  
+**@ViewChild is used to access a single element, directive, or child component from the component's own view.**  
+```javascript
+import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html'
+})
+export class AppComponent implements AfterViewInit {
+  // Query the template variable '#myInput'
+  @ViewChild('myInput') inputElement!: ElementRef<HTMLInputElement>;
+
+  // Elements are guaranteed to be available in AfterViewInit
+  ngAfterViewInit() {
+    console.log(this.inputElement.nativeElement.placeholder);
+  }
+
+  focusInput() {
+    this.inputElement.nativeElement.focus();
+  }
+}
+
+<input #myInput type="text" placeholder="Enter text">
+<button (click)="focusInput()">Focus Input</button>
+```
