@@ -84,3 +84,44 @@ export class AppComponent implements AfterViewInit {
 <input #myInput type="text" placeholder="Enter text">
 <button (click)="focusInput()">Focus Input</button>
 ```
+### 6 - @ViewChildren ###  
+@ViewChildren is used to access multiple elements or child components and returns a QueryList.  
+It always returns a QueryList<T>  
+```javascript
+import { Component, ViewChildren, QueryList, ElementRef, AfterViewInit } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html'
+})
+export class AppComponent implements AfterViewInit {
+  
+  // Querying the DOM for all instances of #itemRef
+  @ViewChildren('itemRef') items!: QueryList<ElementRef>;
+
+  ngAfterViewInit() {
+    // 1. Access them as soon as the view is initialized
+    console.log(`Total elements found: ${this.items.length}`);
+
+    // 2. React to dynamic DOM additions or removals
+    this.items.changes.subscribe((updatedList) => {
+      console.log('DOM changed! New count:', updatedList.length);
+    });
+  }
+
+  logItems() {
+    // Convert QueryList to an array or loop over it directly
+    this.items.forEach((element: ElementRef) => {
+      console.log(element.nativeElement.textContent);
+    });
+  }
+}
+
+<ul>
+  <li #itemRef>Item 1</li>
+  <li #itemRef>Item 2</li>
+  <li #itemRef>Item 3</li>
+</ul>
+
+<button (click)="logItems()">Log Items</button>
+```
